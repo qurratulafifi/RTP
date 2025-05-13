@@ -1,6 +1,7 @@
 package Assignment_1;
 
 import java.io.File;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FileCounter {
     public static void main(String[] args) {
@@ -9,29 +10,29 @@ public class FileCounter {
 
         File file = new File(folderPath);
         if (!file.exists() || !file.isDirectory()) {
-            System.out.println("invalid folder path!");
+            System.out.println("Invalid folder path!");
             return;
         }
 
         File[] files = file.listFiles();
-        int fileCounter = 0;
-        int issuesCounter = 0;
+        AtomicInteger fileCounter = new AtomicInteger(0);
+        AtomicInteger issuesCounter = new AtomicInteger(0);
 
         if (files != null) {
             for (int i = 0; i < files.length; i++) {
                 File currentFile = files[i];
                 if (currentFile.isFile() && currentFile.getName().endsWith(".java")) {
-                    fileCounter++;
+                    fileCounter.incrementAndGet();
+
                     String name = currentFile.getName();
-                    if (name.contains("Solved")){
-                        issuesCounter++;
+                    if (name.contains("Solved")) {
+                        issuesCounter.incrementAndGet();
                     }
                 }
             }
         }
-
-        System.out.println("Number of files: " + fileCounter);
-        System.out.println("Number of issues: " + issuesCounter);
-
+        System.out.println("Number of files: " + fileCounter.get());
+        System.out.println("Number of issues: " + issuesCounter.get());
     }
 }
+
