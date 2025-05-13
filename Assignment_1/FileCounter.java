@@ -23,7 +23,7 @@ public class FileCounter {
                 if (currentFile.isFile() && currentFile.getName().endsWith(".java")) {
                     fileCounter++;
                     String name = currentFile.getName();
-                    if (name.contains("solved")){
+                    if (name.contains("Solved")){
                         issuesCounter++;
                     }
                 }
